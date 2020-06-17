@@ -11,6 +11,18 @@ body {
 div {
   width: 100%;
   margin: 20px;
+  text-align:center;
+}
+
+.title {
+  font: 24px sans-serif;
+}
+
+ul {
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: center;
+  align-content: center;
 }
 
 div li {
@@ -33,7 +45,18 @@ button {
   font-size: 14px;
 }
 
-div li button {
+button svg {
+  color:white;
+  align-items:center;
+}
+
+div li button, .remove {
   margin: 0 15px;
   background: #ca4949;
 }
+
+div li button, .like {
+  margin: 0 15px;
+  background: #49cab4;
+}
+

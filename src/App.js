@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from './services/api';
+import { FiThumbsUp, FiXCircle } from 'react-icons/fi';
 
 import "./styles.css";
 
@@ -18,7 +19,7 @@ function App() {
       url: "www.github.com",
       techs: [
         "ReactJs", "NodeJs", "TypeScript"
-      ]
+      ] 
     });
 
     const repository = response.data;
@@ -37,13 +38,26 @@ function App() {
     setRepositories([...attRepositories]);
   }
 
+  async function handleLikeRepository(id) {
+    const response = await api.post(`repositories/${id}/like`);
+
+    const repositoryIndex = repositories.findIndex(repository => repository.id === id);
+
+    const attRepositories = repositories;
+    attRepositories[repositoryIndex].likes++;
+
+    setRepositories([...attRepositories]);
+  }
+
   return (
     <div>
+      <div className="title">Repositórios</div>
       <ul data-testid="repository-list">
         {repositories.map(repository =>
           <li key={repository.id}>
+            <button className="remove" onClick={() => handleRemoveRepository(repository.id)}><FiXCircle /> Remover</button>
             {repository.title}
-            <button onClick={() => handleRemoveRepository(repository.id)}>Remover</button>
+            <button className="like" onClick={() => handleLikeRepository(repository.id)}><FiThumbsUp /> Curtidas: {repository.likes}</button>
           </li>
         )}
       </ul>
